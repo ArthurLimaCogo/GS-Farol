@@ -1,0 +1,18 @@
+VN-001 | 2026-11-08T02:36:11.485 | nível=80 cm | chuva=30 mm/h | energia=1 | risco=NORMAL
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:36:11.485 | risco=NORMAL
+VN-002 | 2026-11-08T02:36:11.685 | nível=125 cm | chuva=65 mm/h | energia=1 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:36:11.685 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:36:11.685 | risco=ATENÇÃO
+VN-003 | 2026-11-08T02:36:11.886 | nível=185 cm | chuva=60 mm/h | energia=1 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:36:11.886 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:36:11.886 | risco=CRÍTICO
+VN-004 | 2026-11-08T02:36:12.086 | nível=190 cm | chuva=92 mm/h | energia=0 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:36:12.086 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:36:12.086 | risco=CRÍTICO
+VN-005 | 2026-11-08T02:36:12.287 | nível=140 cm | chuva=35 mm/h | energia=0 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:36:12.287 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:36:12.287 | risco=ATENÇÃO
+VN-006 | 2026-11-08T02:36:12.487 | nível=75 cm | chuva=10 mm/h | energia=1 | risco=NORMAL
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:36:12.487 | risco=NORMAL
+
+Resumo: 6 publicações de telemetria, 4 de alertas
