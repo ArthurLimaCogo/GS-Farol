@@ -1,0 +1,47 @@
+VN-001 | 2026-11-08T02:49:39.207 | nível=80 cm | chuva=30 mm/h | energia=1 | risco=NORMAL
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:49:39.207 | risco=NORMAL
+  [MODBUS] 40001=80, 40002=30, 40003=1, 40004=0
+  [BANCO] gravados=1 | pendentes=0 | enviados=1
+VN-002 | 2026-11-08T02:49:39.414 | nível=125 cm | chuva=65 mm/h | energia=1 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:49:39.414 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:49:39.414 | risco=ATENÇÃO
+  [MODBUS] 40001=125, 40002=65, 40003=1, 40004=1
+  [BANCO] gravados=2 | pendentes=0 | enviados=2
+  [CONEXÃO] externa INDISPONÍVEL: leituras serão gravadas como pendentes
+VN-003 | 2026-11-08T02:49:39.620 | nível=185 cm | chuva=60 mm/h | energia=1 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:49:39.620 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:49:39.620 | risco=CRÍTICO
+  [MODBUS] 40001=185, 40002=60, 40003=1, 40004=2
+  [BANCO] gravados=3 | pendentes=1 | enviados=2
+VN-004 | 2026-11-08T02:49:39.825 | nível=190 cm | chuva=92 mm/h | energia=0 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:49:39.825 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:49:39.825 | risco=CRÍTICO
+  [MODBUS] 40001=190, 40002=92, 40003=0, 40004=2
+  [BANCO] gravados=4 | pendentes=2 | enviados=2
+
+  --- Verificação de permissão (VN-004) ---
+  [REDE] origem=posto-vale-norte | VLAN=10 | ação=ligar_bomba | resultado=NEGADA
+  [REDE] origem=central-resgate | VLAN=20 | ação=ligar_bomba | resultado=AUTORIZADA
+
+VN-005 | 2026-11-08T02:49:40.029 | nível=140 cm | chuva=35 mm/h | energia=0 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:49:40.029 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T02:49:40.029 | risco=ATENÇÃO
+  [MODBUS] 40001=140, 40002=35, 40003=0, 40004=1
+  [BANCO] gravados=5 | pendentes=3 | enviados=2
+  [CONEXÃO] externa RESTABELECIDA: sincronizados em ordem ['VN-003', 'VN-004', 'VN-005']
+VN-006 | 2026-11-08T02:49:40.243 | nível=75 cm | chuva=10 mm/h | energia=1 | risco=NORMAL
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T02:49:40.243 | risco=NORMAL
+  [MODBUS] 40001=75, 40002=10, 40003=1, 40004=0
+  [BANCO] gravados=6 | pendentes=0 | enviados=6
+
+Resumo: 6 publicações de telemetria, 4 de alertas
+Tentativas de decisão registradas: 2
+
+Histórico no banco:
+  VN-001 | 2026-11-08T02:49:39.207 | risco=NORMAL | sincronização=enviado
+  VN-002 | 2026-11-08T02:49:39.414 | risco=ATENÇÃO | sincronização=enviado
+  VN-003 | 2026-11-08T02:49:39.620 | risco=CRÍTICO | sincronização=enviado
+  VN-004 | 2026-11-08T02:49:39.825 | risco=CRÍTICO | sincronização=enviado
+  VN-005 | 2026-11-08T02:49:40.029 | risco=ATENÇÃO | sincronização=enviado
+  VN-006 | 2026-11-08T02:49:40.243 | risco=NORMAL | sincronização=enviado
+Entregues à central externa, em ordem: ['VN-001', 'VN-002', 'VN-003', 'VN-004', 'VN-005', 'VN-006']
