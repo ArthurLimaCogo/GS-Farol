@@ -1,0 +1,193 @@
+============================================================
+PARTE 1: roteiro de 6 eventos (leitura, falha, sincronização)
+============================================================
+VN-001 | 2026-11-08T03:03:18.326 | nível=80 cm | chuva=30 mm/h | energia=1 | risco=NORMAL
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T03:03:18.326 | risco=NORMAL
+  [MODBUS] 40001=80, 40002=30, 40003=1, 40004=0
+  [BANCO] gravados=1 | pendentes=0 | enviados=1
+VN-002 | 2026-11-08T03:03:18.533 | nível=125 cm | chuva=65 mm/h | energia=1 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T03:03:18.533 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T03:03:18.533 | risco=ATENÇÃO
+  [MODBUS] 40001=125, 40002=65, 40003=1, 40004=1
+  [BANCO] gravados=2 | pendentes=0 | enviados=2
+  [CONEXÃO] externa INDISPONÍVEL: leituras serão gravadas como pendentes
+VN-003 | 2026-11-08T03:03:18.739 | nível=185 cm | chuva=60 mm/h | energia=1 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T03:03:18.739 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T03:03:18.739 | risco=CRÍTICO
+  [MODBUS] 40001=185, 40002=60, 40003=1, 40004=2
+  [BANCO] gravados=3 | pendentes=1 | enviados=2
+VN-004 | 2026-11-08T03:03:18.944 | nível=190 cm | chuva=92 mm/h | energia=0 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T03:03:18.944 | risco=CRÍTICO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T03:03:18.944 | risco=CRÍTICO
+  [MODBUS] 40001=190, 40002=92, 40003=0, 40004=2
+  [BANCO] gravados=4 | pendentes=2 | enviados=2
+
+  --- Verificação de permissão (VN-004) ---
+  [REDE] origem=posto-vale-norte | VLAN=10 | ação=ligar_bomba | resultado=NEGADA
+  [REDE] origem=central-resgate | VLAN=20 | ação=ligar_bomba | resultado=AUTORIZADA
+
+VN-005 | 2026-11-08T03:03:19.149 | nível=140 cm | chuva=35 mm/h | energia=0 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T03:03:19.149 | risco=ATENÇÃO
+  [CENTRAL] tópico=farol/vale-norte/alertas | posto=Vale Norte | data/hora=2026-11-08T03:03:19.149 | risco=ATENÇÃO
+  [MODBUS] 40001=140, 40002=35, 40003=0, 40004=1
+  [BANCO] gravados=5 | pendentes=3 | enviados=2
+  [CONEXÃO] externa RESTABELECIDA: sincronizados em ordem ['VN-003', 'VN-004', 'VN-005']
+VN-006 | 2026-11-08T03:03:19.363 | nível=75 cm | chuva=10 mm/h | energia=1 | risco=NORMAL
+  [CENTRAL] tópico=farol/vale-norte/telemetria | posto=Vale Norte | data/hora=2026-11-08T03:03:19.363 | risco=NORMAL
+  [MODBUS] 40001=75, 40002=10, 40003=1, 40004=0
+  [BANCO] gravados=6 | pendentes=0 | enviados=6
+
+Resumo: 6 publicações de telemetria, 4 de alertas
+Tentativas de decisão registradas: 2
+
+Histórico no banco:
+  VN-001 | 2026-11-08T03:03:18.326 | risco=NORMAL | sincronização=enviado
+  VN-002 | 2026-11-08T03:03:18.533 | risco=ATENÇÃO | sincronização=enviado
+  VN-003 | 2026-11-08T03:03:18.739 | risco=CRÍTICO | sincronização=enviado
+  VN-004 | 2026-11-08T03:03:18.944 | risco=CRÍTICO | sincronização=enviado
+  VN-005 | 2026-11-08T03:03:19.149 | risco=ATENÇÃO | sincronização=enviado
+  VN-006 | 2026-11-08T03:03:19.363 | risco=NORMAL | sincronização=enviado
+Entregues à central externa, em ordem: ['VN-001', 'VN-002', 'VN-003', 'VN-004', 'VN-005', 'VN-006']
+
+============================================================
+PARTE 2: consulta e decisão pela API
+============================================================
+
+>>> GET /status  ->  HTTP 200
+{
+  "ultima_leitura": {
+    "id_evento": "VN-006",
+    "posto": "Vale Norte",
+    "data_hora": "2026-11-08T03:03:19.363",
+    "nivel_cm": 75,
+    "chuva_mmh": 10,
+    "energia": 1,
+    "risco": "NORMAL",
+    "sincronizacao": "enviado"
+  },
+  "risco": "NORMAL"
+}
+
+>>> GET /eventos  ->  HTTP 200
+{
+  "total": 6,
+  "eventos": [
+    {
+      "id_evento": "VN-001",
+      "posto": "Vale Norte",
+      "data_hora": "2026-11-08T03:03:18.326",
+      "nivel_cm": 80,
+      "chuva_mmh": 30,
+      "energia": 1,
+      "risco": "NORMAL",
+      "sincronizacao": "enviado"
+    },
+    {
+      "id_evento": "VN-002",
+      "posto": "Vale Norte",
+      "data_hora": "2026-11-08T03:03:18.533",
+      "nivel_cm": 125,
+      "chuva_mmh": 65,
+      "energia": 1,
+      "risco": "ATENÇÃO",
+      "sincronizacao": "enviado"
+    },
+    {
+      "id_evento": "VN-003",
+      "posto": "Vale Norte",
+      "data_hora": "2026-11-08T03:03:18.739",
+      "nivel_cm": 185,
+      "chuva_mmh": 60,
+      "energia": 1,
+      "risco": "CRÍTICO",
+      "sincronizacao": "enviado"
+    },
+    {
+      "id_evento": "VN-004",
+      "posto": "Vale Norte",
+      "data_hora": "2026-11-08T03:03:18.944",
+      "nivel_cm": 190,
+      "chuva_mmh": 92,
+      "energia": 0,
+      "risco": "CRÍTICO",
+      "sincronizacao": "enviado"
+    },
+    {
+      "id_evento": "VN-005",
+      "posto": "Vale Norte",
+      "data_hora": "2026-11-08T03:03:19.149",
+      "nivel_cm": 140,
+      "chuva_mmh": 35,
+      "energia": 0,
+      "risco": "ATENÇÃO",
+      "sincronizacao": "enviado"
+    },
+    {
+      "id_evento": "VN-006",
+      "posto": "Vale Norte",
+      "data_hora": "2026-11-08T03:03:19.363",
+      "nivel_cm": 75,
+      "chuva_mmh": 10,
+      "energia": 1,
+      "risco": "NORMAL",
+      "sincronizacao": "enviado"
+    }
+  ]
+}
+
+--- Tentativa por um SENSOR (deve ser negada) ---
+
+>>> POST /decisao  ->  HTTP 403
+{
+  "id_evento": "VN-004",
+  "decisao": "autorizar",
+  "operador": "op-01",
+  "origem": "posto-vale-norte",
+  "vlan": 10,
+  "horario": "2026-11-08T03:03:19",
+  "resultado": "NEGADA",
+  "motivo": "origem sem permissão: somente a VLAN 20 registra decisão"
+}
+
+--- Autorização pela CENTRAL/RESGATE (deve ser aceita) ---
+
+>>> POST /decisao  ->  HTTP 201
+{
+  "id_evento": "VN-004",
+  "decisao": "autorizar",
+  "operador": "op-01",
+  "origem": "central-resgate",
+  "vlan": 20,
+  "horario": "2026-11-08T03:03:20",
+  "resultado": "ACEITA",
+  "motivo": "solicitação válida da central/resgate (VLAN 20)"
+}
+
+>>> GET /decisoes  ->  HTTP 200
+{
+  "total": 2,
+  "decisoes": [
+    {
+      "id_decisao": 1,
+      "id_evento": "VN-004",
+      "decisao": "autorizar",
+      "operador": "op-01",
+      "origem": "posto-vale-norte",
+      "vlan": 10,
+      "horario": "2026-11-08T03:03:19",
+      "resultado": "NEGADA",
+      "motivo": "origem sem permissão: somente a VLAN 20 registra decisão"
+    },
+    {
+      "id_decisao": 2,
+      "id_evento": "VN-004",
+      "decisao": "autorizar",
+      "operador": "op-01",
+      "origem": "central-resgate",
+      "vlan": 20,
+      "horario": "2026-11-08T03:03:20",
+      "resultado": "ACEITA",
+      "motivo": "solicitação válida da central/resgate (VLAN 20)"
+    }
+  ]
+}
